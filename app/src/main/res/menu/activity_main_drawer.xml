@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_Carrer_Vacancy"
+            android:icon="@drawable/ic_menu_bag"
+            android:title="Carrer Vacancy"
+            />
+        <item
+            android:id="@+id/nav_Upcoming"
+            android:icon="@drawable/ic_menu_calendar"
+            android:title="Upcoming" />
+        <item
+            android:id="@+id/nav_News"
+            android:icon="@drawable/ic_menu_news"
+            android:title="News" />
+        <item
+            android:id="@+id/nav_Merchants"
+            android:icon="@drawable/ic_menu_shop"
+            android:title="Merchants"/>
+    </group>
+</menu>

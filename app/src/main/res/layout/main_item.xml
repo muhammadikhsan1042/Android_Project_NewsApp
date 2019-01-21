@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="@drawable/border"
+    android:layout_marginVertical="10dp">
+
+    <ImageView
+        android:id="@+id/IV_News"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        app:srcCompat="@mipmap/ic_launcher" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:paddingHorizontal="20dp"
+        android:paddingVertical="10dp">
+
+        <TextView
+            android:id="@+id/TV_Title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Bagaimana Perang Subsidi Ovo Go-Pay di Indonesia Bisa Berakhir"
+            android:textSize="16sp"
+            android:layout_alignParentTop="true"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true">
+
+            <TextView
+                android:id="@+id/TV_Creator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:text="Oleh : Muhammad Ikhsan"
+                android:textSize="12dp"/>
+
+            <TextView
+                android:id="@+id/TV_Date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="04 Jan 2019"
+                android:textSize="12dp"/>
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>
