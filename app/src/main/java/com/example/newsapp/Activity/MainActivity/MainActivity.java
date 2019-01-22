@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.example.newsapp.Adapter.MainAdapter;
+import com.example.newsapp.Classes.SearchClasses.MaterialSearchView;
 import com.example.newsapp.Classes.SharedPrefManager;
 import com.example.newsapp.Classes.SupportClasses;
 import com.example.newsapp.Model.NewsItem;
@@ -45,6 +46,11 @@ public class MainActivity extends SupportClasses
     SwipeRefreshLayout SR_Main;
     @BindView(R.id.drawer_layout)
     DrawerLayout drawer_layout;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+    @BindView(R.id.nav_view)
+    NavigationView navigationView;
+    MaterialSearchView searchView;
 
 
     @Override
@@ -56,8 +62,8 @@ public class MainActivity extends SupportClasses
 
     public void initItem(){
         initView();
-        initNav();
         initVar();
+        initNav();
         initPresenter();
         initDataPresenter();
     }
@@ -66,6 +72,7 @@ public class MainActivity extends SupportClasses
         ButterKnife.bind(this);
         RV_Main = findViewById(R.id.RV_Main);
         RV_Main.setLayoutManager(new LinearLayoutManager(mContext));
+        searchView = findViewById(R.id.search_view);
     }
 
     private void initPresenter() {
@@ -83,7 +90,6 @@ public class MainActivity extends SupportClasses
     }
 
     public void initNav(){
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -91,9 +97,31 @@ public class MainActivity extends SupportClasses
         drawer_layout.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        searchView.showSearch(false);
+        searchView.closeSearch();
+        searchView.setOnQueryTextListener(this);
+        searchView.setOnSearchViewListener(this);
+        searchView.mBackBtn.setOnClickListener(vOnClickListener);
     }
+
+    private final View.OnClickListener vOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            searchView.closeSearch();
+            toolbar.setVisibility(View.VISIBLE);
+        }
+    };
+
+    private final MenuItem.OnMenuItemClickListener vMenuItemClick = new MenuItem.OnMenuItemClickListener() {
+        @Override
+        public boolean onMenuItemClick(MenuItem item) {
+            searchView.showSearch();
+            toolbar.setVisibility(View.GONE);
+            return false;
+        }
+    };
 
     @Override
     protected void onResume() {
@@ -117,11 +145,21 @@ public class MainActivity extends SupportClasses
         } else {
             super.onBackPressed();
         }
+
+        if (searchView.isSearchOpen()) {
+            searchView.closeSearch();
+            toolbar.setVisibility(View.VISIBLE);
+        } else {
+            super.onBackPressed();
+        }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
+
+        MenuItem item = menu.findItem(R.id.action_search);
+        item.setOnMenuItemClickListener(vMenuItemClick);
         return true;
     }
 
@@ -187,5 +225,25 @@ public class MainActivity extends SupportClasses
         Snackbar.make(mView, message, Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show();
         progressDialog.dismiss();
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        return false;
+    }
+
+    @Override
+    public void onSearchViewShown() {
+
+    }
+
+    @Override
+    public void onSearchViewClosed() {
+
     }
 }
